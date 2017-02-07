@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/03 15:05:55 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/07 16:37:54 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,27 @@ void	init_map(t_all *truc)
 
 void	find_walls(t_all *truc)
 {
-	int		angle_tmp;
 	int		x;
 
 	x = 0;
-	angle_tmp = truc->player_view - (PLAYER_FOV / 2);
 	while (x < W)
 	{
+		ray_caster(truc, x);
 		x++;
 	}
+	mlx_put_image_to_window(truc->mlx, truc->win, truc->img, 0, 0);
 }
 
 void	init_values(t_all *truc)
 {
-	truc->player_pos_x = 448;
-	truc->player_pos_y = 448;
-	truc->player_view = 45;
-	truc->distance = W / tan(PLAYER_FOV / 2);
-	truc->angle = PLAYER_FOV / W;
+	truc->player_pos_x = 6;
+	truc->player_pos_y = 6;
+	truc->dirX = -1;
+	truc->dirY = 0;
+	truc->planeX = 0;
+	truc->planeY = 0.66;
+	truc->time = 0;
+	truc->oldtime = 0;
 	find_walls(truc);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/03 13:24:40 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/07 15:52:19 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <math.h>
 # include <unistd.h>
 
-# define W 320
-# define H 200
+# define W 512
+# define H 384
 # define CUBE 64
 # define WALL_COLOR 0x0000FFFF
 # define PLAYER_FOV 60
@@ -38,16 +38,33 @@ typedef struct	s_all
 	void		*img;
 	int			idgaf;
 	int			map[8][8];
-	int			player_pos_x;
-	int			player_pos_y;
-	double		player_view;
-	double		distance;
-	double		angle;
-	int			x1;
-	int			x2;
-	int			y1;
-	int			y2;
-	int			ray_lenght;
+	double		player_pos_x;
+	double		player_pos_y;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+	double		time;
+	double		oldtime;
+	double		cameraX;
+	double		rayPosX;
+	double		rayPosY;
+	double		rayDirX;
+	double		rayDirY;
+	int			mapX;
+	int			mapY;
+	double		sideDistX;
+	double		sideDistY;
+	double		deltaDistX;
+	double		deltaDistY;
+	double		perpWallDist;
+	int			stepX;
+	int			stepY;
+	int			hit;
+	int			side;
+	int			lineHeight;
+	int			drawStart;
+	int			drawEnd;
 }				t_all;
 
 int				keyboard_input(int keycode, t_all *truc);
