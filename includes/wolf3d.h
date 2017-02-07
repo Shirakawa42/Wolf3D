@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/07 15:52:19 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/07 17:24:58 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@
 # include <math.h>
 # include <unistd.h>
 
-# define W 512
-# define H 384
+# define W 1280
+# define H 720
 # define CUBE 64
 # define WALL_COLOR 0x0000FFFF
 # define PLAYER_FOV 60
 # define PLAYER_HEIGHT 32
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 124
 
 typedef struct	s_all
 {
@@ -69,5 +73,6 @@ typedef struct	s_all
 
 int				keyboard_input(int keycode, t_all *truc);
 void			ray_caster(t_all *truc, int x);
+void			find_walls(t_all *truc);
 
 #endif
