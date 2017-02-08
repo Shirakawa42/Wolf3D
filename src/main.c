@@ -18,24 +18,25 @@ void	init_map(t_all *truc)
 	int		y;
 
 	x = -1;
-	while (++x < 8)
+	while (++x < 32)
 	{
 		y = -1;
-		while (++y < 8)
+		while (++y < 32)
 			truc->map[x][y] = 0;
 	}
 	x = -1;
-	while (++x < 8)
+	while (++x < 32)
 	{
 		truc->map[0][x] = 1;
-		truc->map[7][x] = 1;
+		truc->map[31][x] = 1;
 	}
 	x = -1;
-	while (++x < 8)
+	while (++x < 32)
 	{
 		truc->map[x][0] = 1;
-		truc->map[x][7] = 1;
+		truc->map[x][31] = 1;
 	}
+	truc->map[16][7] = 1;
 }
 
 void	find_walls(t_all *truc)
@@ -59,8 +60,12 @@ void	init_values(t_all *truc)
 	truc->dirY = 0;
 	truc->planeX = 0;
 	truc->planeY = 0.66;
-	truc->time = 0;
-	truc->oldtime = 0;
+	truc->frame = 0;
+	truc->oldframe = 0;
+	truc->player_moving_up = 0;
+	truc->player_moving_left = 0;
+	truc->player_moving_down = 0;
+	truc->player_moving_right = 0;
 	find_walls(truc);
 }
 
@@ -73,7 +78,9 @@ void	init_mlx(t_all *truc)
 			&truc->size, &truc->idgaf);
 	init_map(truc);
 	init_values(truc);
-	mlx_key_hook(truc->win, keyboard_input, truc);
+	mlx_loop_hook(truc->mlx, loop_hook, truc);
+	mlx_hook(truc->win, 2, 1L<<0, key_input, truc);
+	mlx_key_hook(truc->win, key_input, truc);
 	mlx_loop(truc->mlx);
 }
 

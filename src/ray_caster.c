@@ -79,8 +79,6 @@ void	draw_vertical(t_all *truc, int x)
 
 	y1 = truc->drawStart;
 	y2 = truc->drawEnd;
-	ft_putnbr(y1);
-	ft_putnbr(y2);
 	while (y1 <= y2)
 	{
 		*(unsigned *)(truc->data_addr + (y1 * truc->size) +
@@ -91,8 +89,6 @@ void	draw_vertical(t_all *truc, int x)
 
 void	ray_caster(t_all *truc, int x)
 {
-	ft_putnbr(x);
-	ft_putchar('\n');
 	truc->cameraX = 2 * x / (double)W - 1;
 	truc->rayPosX = truc->player_pos_x;
 	truc->rayPosY = truc->player_pos_y;
