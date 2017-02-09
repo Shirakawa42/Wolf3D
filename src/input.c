@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:06:08 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/07 17:22:13 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/09 16:17:14 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ int		key_input(int keycode, t_all *truc)
 	return (0);
 }
 
-void	move_up(t_all *truc)
+void	move_up(t_all *truc, int map[MAP_X][MAP_Y])
 {
-	if (truc->map[(int)(truc->player_pos_x + truc->dirX * MOVE_SPEED)][(int)truc->player_pos_y] == 0)
+	if (map[(int)(truc->player_pos_x + truc->dirX * MOVE_SPEED)][(int)truc->player_pos_y] == 0)
 		truc->player_pos_x += truc->dirX * MOVE_SPEED;
-	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y + truc->dirY * MOVE_SPEED)] == 0)
+	if (map[(int)truc->player_pos_x][(int)(truc->player_pos_y + truc->dirY * MOVE_SPEED)] == 0)
 		truc->player_pos_y += truc->dirY * MOVE_SPEED;
 }
 
-void	move_down(t_all *truc)
+void	move_down(t_all *truc, int map[MAP_X][MAP_Y])
 {
-	if (truc->map[(int)(truc->player_pos_x - truc->dirX * MOVE_SPEED)][(int)truc->player_pos_y] == 0)
+	if (map[(int)(truc->player_pos_x - truc->dirX * MOVE_SPEED)][(int)truc->player_pos_y] == 0)
 		truc->player_pos_x -= truc->dirX * MOVE_SPEED;
-	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y - truc->dirY * MOVE_SPEED)] == 0)
+	if (map[(int)truc->player_pos_x][(int)(truc->player_pos_y - truc->dirY * MOVE_SPEED)] == 0)
 		truc->player_pos_y -= truc->dirY * MOVE_SPEED;
 }
 
@@ -82,14 +82,41 @@ void	move_left(t_all *truc)
 
 int		loop_hook(t_all *truc)
 {
+	int		map[MAP_X][MAP_Y] =
+	{
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	};
 	truc->oldframe = clock();
 	if (truc->frame > truc->oldframe)
 		return (0);
 	truc->frame = truc->oldframe + (CLOCKS_PER_SEC / 100);
 	if (truc->player_moving_up != 0)
-		move_up(truc);
+		move_up(truc, map);
 	if (truc->player_moving_down != 0)
-		move_down(truc);
+		move_down(truc, map);
 	if (truc->player_moving_left != 0)
 		move_left(truc);
 	if (truc->player_moving_right != 0)

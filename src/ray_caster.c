@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 12:25:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/07 17:27:23 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/09 16:24:55 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	step(t_all *truc)
 	}
 }
 
-void	hit_wall(t_all *truc)
+void	hit_wall(t_all *truc, int map[MAP_X][MAP_Y])
 {
 	while (truc->hit == 0)
 	{
@@ -52,7 +52,7 @@ void	hit_wall(t_all *truc)
 			truc->mapY += truc->stepY;
 			truc->side = 1;
 		}
-		if (truc->map[truc->mapX][truc->mapY] > 0)
+		if (map[truc->mapX][truc->mapY] > 0)
 			truc->hit = 1;
 	}
 }
@@ -82,12 +82,12 @@ void	draw_vertical(t_all *truc, int x)
 	while (y1 <= y2)
 	{
 		*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-				(x * truc->bpx / 8)) = WALL_COLOR;
+				(x * truc->bpx / 8)) = 0x0066FF00;
 		y1++;
 	}
 }
 
-void	ray_caster(t_all *truc, int x)
+void	ray_caster(t_all *truc, int x, int map[MAP_X][MAP_Y])
 {
 	truc->cameraX = 2 * x / (double)W - 1;
 	truc->rayPosX = truc->player_pos_x;
@@ -100,7 +100,7 @@ void	ray_caster(t_all *truc, int x)
 	truc->deltaDistY = sqrt(1 + (truc->rayDirX * truc->rayDirX) / (truc->rayDirY * truc->rayDirY));
 	truc->hit = 0;
 	step(truc);
-	hit_wall(truc);
+	hit_wall(truc, map);
 	distance_to_wall(truc);
 	draw_vertical(truc, x);
 }

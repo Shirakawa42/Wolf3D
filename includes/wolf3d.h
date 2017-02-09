@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/07 17:24:58 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/09 17:07:01 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@
 
 # define W 1280
 # define H 720
-# define WALL_COLOR 0x00880801
-# define WALL_COLOR2 0x0000F00F
-# define WALL_COLOR3 0x0FF0FF00
-# define WALL_COLOR4 0x00FFF0FF
 # define UP 126
 # define DOWN 125
 # define LEFT 123
@@ -40,6 +36,8 @@
 # define RIGHT_UBUNTU 65363
 # define MOVE_SPEED 0.07
 # define TURN_SPEED 0.05
+# define MAP_X 24
+# define MAP_Y 24
 
 typedef struct	s_all
 {
@@ -50,7 +48,6 @@ typedef struct	s_all
 	char		*data_addr;
 	void		*img;
 	int			idgaf;
-	int			map[32][32];
 	double		player_pos_x;
 	double		player_pos_y;
 	double		dirX;
@@ -83,9 +80,14 @@ typedef struct	s_all
 	int			player_moving_right;
 	double		frame;
 	double		oldframe;
+	void		*img_sky;
+	char		*data_addr_sky;
+	int			idgaf_sky;
+	int			size_sky;
+	int			bpx_sky;
 }				t_all;
 
-void			ray_caster(t_all *truc, int x);
+void			ray_caster(t_all *truc, int x, int map[MAP_X][MAP_Y]);
 void			find_walls(t_all *truc);
 int				loop_hook(t_all *truc);
 int				key_input(int keycode, t_all *truc);
