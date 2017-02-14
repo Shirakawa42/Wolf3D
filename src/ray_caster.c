@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 12:25:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/09 16:24:55 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/14 18:16:03 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	step(t_all *truc)
 	}
 }
 
-void	hit_wall(t_all *truc, int map[MAP_X][MAP_Y])
+void	hit_wall(t_all *truc)
 {
 	while (truc->hit == 0)
 	{
@@ -52,7 +52,7 @@ void	hit_wall(t_all *truc, int map[MAP_X][MAP_Y])
 			truc->mapY += truc->stepY;
 			truc->side = 1;
 		}
-		if (map[truc->mapX][truc->mapY] > 0)
+		if (truc->map[truc->mapX][truc->mapY] > 0)
 			truc->hit = 1;
 	}
 }
@@ -68,7 +68,7 @@ void	distance_to_wall(t_all *truc)
 	if (truc->drawStart < 0)
 		truc->drawStart = 0;
 	truc->drawEnd = truc->lineHeight / 2 + H / 2;
-	if (truc->drawEnd >= H)
+	if (truc->drawEnd >= H || truc->drawEnd < truc->drawStart)
 		truc->drawEnd = H - 1;
 }
 
@@ -76,18 +76,28 @@ void	draw_vertical(t_all *truc, int x)
 {
 	int		y1;
 	int		y2;
+	int		i;
 
+	i = 0;
 	y1 = truc->drawStart;
 	y2 = truc->drawEnd;
-	while (y1 <= y2)
-	{
-		*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-				(x * truc->bpx / 8)) = 0x0066FF00;
-		y1++;
-	}
+	while (++i <= y1)
+		*(unsigned *)(truc->data_addr + (i * truc->size) +
+				(x * truc->bpx / 8)) = 0x0060FFF9;
+	while (++y1 <= y2)
+		if (truc->side == 1)
+			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
+					(x * truc->bpx / 8)) = 0x0066FF00;
+		else
+			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
+					(x * truc->bpx / 8)) = 0x006600FF;
+	y2--;
+	while (++y2 <= H - 1)
+		*(unsigned *)(truc->data_addr + (y2 * truc->size) +
+				(x * truc->bpx / 8)) = 0x000F66FF;
 }
 
-void	ray_caster(t_all *truc, int x, int map[MAP_X][MAP_Y])
+void	ray_caster(t_all *truc, int x)
 {
 	truc->cameraX = 2 * x / (double)W - 1;
 	truc->rayPosX = truc->player_pos_x;
@@ -100,7 +110,7 @@ void	ray_caster(t_all *truc, int x, int map[MAP_X][MAP_Y])
 	truc->deltaDistY = sqrt(1 + (truc->rayDirX * truc->rayDirX) / (truc->rayDirY * truc->rayDirY));
 	truc->hit = 0;
 	step(truc);
-	hit_wall(truc, map);
+	hit_wall(truc);
 	distance_to_wall(truc);
 	draw_vertical(truc, x);
 }

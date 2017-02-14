@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/09 17:07:01 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/14 17:49:50 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,19 @@
 # define DOWN_UBUNTU 65364
 # define LEFT_UBUNTU 65361
 # define RIGHT_UBUNTU 65363
-# define MOVE_SPEED 0.07
-# define TURN_SPEED 0.05
-# define MAP_X 24
-# define MAP_Y 24
+# define MOVE_SPEED 0.09
+# define TURN_SPEED 0.06
+
+typedef struct	s_img
+{
+	void		*img;
+	char		*data_addr;
+	int			idgaf;
+	int			size;
+	int			bpx;
+	int			w;
+	int			h;
+}				t_img;
 
 typedef struct	s_all
 {
@@ -80,14 +89,11 @@ typedef struct	s_all
 	int			player_moving_right;
 	double		frame;
 	double		oldframe;
-	void		*img_sky;
-	char		*data_addr_sky;
-	int			idgaf_sky;
-	int			size_sky;
-	int			bpx_sky;
+	int			**map;
+	t_img		sky;
 }				t_all;
 
-void			ray_caster(t_all *truc, int x, int map[MAP_X][MAP_Y]);
+void			ray_caster(t_all *truc, int x);
 void			find_walls(t_all *truc);
 int				loop_hook(t_all *truc);
 int				key_input(int keycode, t_all *truc);

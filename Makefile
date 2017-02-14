@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+         #
+#    By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/26 20:45:05 by zadrien           #+#    #+#              #
-#    Updated: 2017/02/03 13:15:23 by lvasseur         ###   ########.fr        #
+#    Created: 2017/02/14 17:09:20 by lvasseur          #+#    #+#              #
+#    Updated: 2017/02/14 17:39:16 by lvasseur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC = $(addprefix $(C_DIR), $(SRCS))
 
 OBJ = $(SRCS:.c=.o)
 
-INC = -I includes -I libft/
+INC = -I includes/ -I libft/
 
 all : $(NAME)
 
