@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/15 13:58:00 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/15 16:35:40 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <unistd.h>
 # include <time.h>
 
-# define W 1280
-# define H 720
+# define W 2464
+# define H 1386
 # define UP 126
 # define DOWN 125
 # define LEFT 123

@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/15 14:06:19 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/15 16:31:38 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ void	init_map(t_all *truc, int x, int y)
 			if (i == 0 || i == x - 1 || j == y - 1 || j == 0)
 				truc->map[i][j] = 1;
 			else
-				truc->map[i][j] = (int)(rand() % 4);
-			if (truc->map[i][j] == 2 || truc->map[i][j] == 3)
+				truc->map[i][j] = (int)(rand() % 5);
+			if (truc->map[i][j] == 2 || truc->map[i][j] == 3 || truc->map[i][j] == 4)
 				truc->map[i][j] = 0;
-			ft_putnbr(truc->map[i][j]);
-			ft_putchar(' ');
 			j++;
 		}
-		ft_putchar('\n');
+		ft_putstr("\nLoading: ");
+		ft_putnbr((int)(((double)(i * j) / (double)(x * y)) * (double)100));
+		ft_putchar('%');
 		i++;
 	}
+	ft_putendl("\nLoading Complete !");
 	truc->map[(int)(x / 2)][(int)(y / 2)] = 0;
 	truc->player_pos_x = (int)(x / 2);
 	truc->player_pos_y = (int)(y / 2);
@@ -72,6 +73,10 @@ void	init_values(t_all *truc, char **av)
 		x_param = 3;
 	if (y_param <= 2)
 		y_param = 3;
+	if (x_param > 30000)
+		x_param = 30000;
+	if (y_param > 30000)
+		y_param = 30000;
 	truc->dirX = -1;
 	truc->dirY = 0;
 	truc->planeX = 0;
@@ -104,11 +109,9 @@ void	init_mlx(t_all *truc, char **av)
 int		main(int ac, char **av)
 {
 	t_all	*truc;
-	char	*path;
 
 	if (ac != 3)
 		return (0);
-	path = ft_strdup("./../textures/CIEL.xpm");
 	if ((truc = (t_all*)malloc(sizeof(t_all))) == 0)
 		return (0);
 	init_mlx(truc, av);
