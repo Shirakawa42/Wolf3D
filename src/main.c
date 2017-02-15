@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/14 18:19:31 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/15 14:06:19 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,28 @@ void	init_map(t_all *truc, int x, int y)
 
 	srand(time(NULL));
 	i = 0;
-	truc->map = (int**)malloc(sizeof(int*) * x);
+	if ((truc->map = (int**)malloc(sizeof(int*) * x)) == 0)
+		return ;
 	while (i < x)
-		truc->map[i++] = (int*)malloc(sizeof(int) * y);
+		if ((truc->map[i++] = (int*)malloc(sizeof(int) * y)) == 0)
+			return ;
 	i = 0;
 	while (i < x)
 	{
 		j = 0;
 		while (j < y)
 		{
-			if (i == 0 || i == x || j == y || j == 0)
+			if (i == 0 || i == x - 1 || j == y - 1 || j == 0)
 				truc->map[i][j] = 1;
 			else
-				truc->map[i][j] = (int)(rand() % 3);
+				truc->map[i][j] = (int)(rand() % 4);
 			if (truc->map[i][j] == 2 || truc->map[i][j] == 3)
 				truc->map[i][j] = 0;
+			ft_putnbr(truc->map[i][j]);
+			ft_putchar(' ');
 			j++;
 		}
+		ft_putchar('\n');
 		i++;
 	}
 	truc->map[(int)(x / 2)][(int)(y / 2)] = 0;
@@ -104,7 +109,8 @@ int		main(int ac, char **av)
 	if (ac != 3)
 		return (0);
 	path = ft_strdup("./../textures/CIEL.xpm");
-	truc = (t_all*)malloc(sizeof(t_all));
+	if ((truc = (t_all*)malloc(sizeof(t_all))) == 0)
+		return (0);
 	init_mlx(truc, av);
 	return (0);
 }

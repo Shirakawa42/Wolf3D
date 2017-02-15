@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 12:25:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/14 18:16:03 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/15 14:09:47 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	distance_to_wall(t_all *truc)
 	if (truc->drawStart < 0)
 		truc->drawStart = 0;
 	truc->drawEnd = truc->lineHeight / 2 + H / 2;
-	if (truc->drawEnd >= H || truc->drawEnd < truc->drawStart)
+	if (truc->drawEnd >= H || truc->drawEnd <= truc->drawStart)
 		truc->drawEnd = H - 1;
 }
 
