@@ -81,6 +81,40 @@ void	move_left(t_all *truc)
 	truc->planeY = tmp * sin(TURN_SPEED) + truc->planeY * cos(TURN_SPEED);
 }
 
+void	create_cube(t_all *truc)
+{
+	if (truc->dirX < -0.5 && truc->dirX > -1 && truc->dirY < 0.5 && truc->dirY > -0.5)
+		truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y] = 1;
+	if (truc->dirX >= -0.5 && truc->dirY < 0.5 && truc->dirY > -0.5)
+		truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] = 1;
+	if (truc->dirY < -0.5 && truc->dirY > -1 && truc->dirX < 0.5 && truc->dirX > -0.5)
+		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1] = 1;
+	if (truc->dirY >= -0.5 && truc->dirX < 0.5 && truc->dirX > -0.5)
+		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] = 1;
+}
+
+void	destroy_cube(t_all *truc)
+{
+	if (truc->dirX < -0.5 && truc->dirX > -1 && truc->dirY < 0.5 && truc->dirY > -0.5 && truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y] != 2)
+		truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y] = 0;
+	if (truc->dirX >= -0.5 && truc->dirY < 0.5 && truc->dirY > -0.5 && truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] != 2)
+		truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] = 0;
+	if (truc->dirY < -0.5 && truc->dirY > -1 && truc->dirX < 0.5 && truc->dirX > -0.5 && truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1] != 2)
+		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1] = 0;
+	if (truc->dirY >= -0.5 && truc->dirX < 0.5 && truc->dirX > -0.5 && truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] != 2)
+		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] = 0;
+}
+
+int		mouse_input(int keycode, int x, int y, t_all *truc)
+{
+	x = y;
+	if (keycode == 1)
+		destroy_cube(truc);
+	else if (keycode == 3)
+		create_cube(truc);
+	return (0);
+}
+
 int		loop_hook(t_all *truc)
 {
 	truc->oldframe = clock();

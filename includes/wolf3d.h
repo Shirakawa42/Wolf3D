@@ -22,8 +22,8 @@
 # include <unistd.h>
 # include <time.h>
 
-# define W 2464
-# define H 1386
+# define W 1280
+# define H 720
 # define UP 126
 # define DOWN 125
 # define LEFT 123
@@ -90,6 +90,7 @@ typedef struct	s_all
 	double		frame;
 	double		oldframe;
 	int			**map;
+	int			dens;
 	t_img		sky;
 }				t_all;
 
@@ -97,5 +98,6 @@ void			ray_caster(t_all *truc, int x);
 void			find_walls(t_all *truc);
 int				loop_hook(t_all *truc);
 int				key_input(int keycode, t_all *truc);
+int				mouse_input(int keycode, int x, int y, t_all *truc);
 
 #endif

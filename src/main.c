@@ -31,10 +31,10 @@ void	init_map(t_all *truc, int x, int y)
 		while (j < y)
 		{
 			if (i == 0 || i == x - 1 || j == y - 1 || j == 0)
-				truc->map[i][j] = 1;
+				truc->map[i][j] = 2;
 			else
-				truc->map[i][j] = (int)(rand() % 5);
-			if (truc->map[i][j] == 2 || truc->map[i][j] == 3 || truc->map[i][j] == 4)
+				truc->map[i][j] = (int)(rand() % 8 + 3);
+			if (truc->map[i][j] >= 3 + truc->dens && truc->map[i][j] <= 10)
 				truc->map[i][j] = 0;
 			j++;
 		}
@@ -93,6 +93,7 @@ void	init_values(t_all *truc, char **av)
 
 void	init_mlx(t_all *truc, char **av)
 {
+	truc->dens = ft_atoi(av[3]);
 	truc->mlx = mlx_init();
 	truc->win = mlx_new_window(truc->mlx, W, H, "Wolf3D");
 	truc->img = mlx_new_image(truc->mlx, W, H);
@@ -103,6 +104,7 @@ void	init_mlx(t_all *truc, char **av)
 	mlx_loop_hook(truc->mlx, loop_hook, truc);
 	mlx_hook(truc->win, 2, 1L<<0, key_input, truc);
 	mlx_key_hook(truc->win, key_input, truc);
+	mlx_mouse_hook(truc->win, mouse_input, truc);
 	mlx_loop(truc->mlx);
 }
 
@@ -110,7 +112,7 @@ int		main(int ac, char **av)
 {
 	t_all	*truc;
 
-	if (ac != 3)
+	if (ac != 4)
 		return (0);
 	if ((truc = (t_all*)malloc(sizeof(t_all))) == 0)
 		return (0);
