@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 13:30:57 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 13:44:37 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 16:59:06 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 void	step(t_all *truc)
 {
-	if (truc->rayDirX < 0)
+	if (truc->raydirx < 0)
 	{
-		truc->stepX = -1;
-		truc->sideDistX = (truc->rayPosX - truc->mapX) * truc->deltaDistX;
+		truc->stepx = -1;
+		truc->sidedistx = (truc->rayposx - truc->mapx) * truc->deltadistx;
 	}
 	else
 	{
-		truc->stepX = 1;
-		truc->sideDistX = (truc->mapX + 1.0 - truc->rayPosX) * truc->deltaDistX;
+		truc->stepx = 1;
+		truc->sidedistx = (truc->mapx + 1.0 - truc->rayposx) * truc->deltadistx;
 	}
-	if (truc->rayDirY < 0)
+	if (truc->raydiry < 0)
 	{
-		truc->stepY = -1;
-		truc->sideDistY = (truc->rayPosY - truc->mapY) * truc->deltaDistY;
+		truc->stepy = -1;
+		truc->sidedisty = (truc->rayposy - truc->mapy) * truc->deltadisty;
 	}
 	else
 	{
-		truc->stepY = 1;
-		truc->sideDistY = (truc->mapY + 1.0 - truc->rayPosY) * truc->deltaDistY;
+		truc->stepy = 1;
+		truc->sidedisty = (truc->mapy + 1.0 - truc->rayposy) * truc->deltadisty;
 	}
 }
 
@@ -40,19 +40,19 @@ void	hit_wall(t_all *truc)
 {
 	while (truc->hit == 0)
 	{
-		if (truc->sideDistX < truc->sideDistY)
+		if (truc->sidedistx < truc->sidedisty)
 		{
-			truc->sideDistX += truc->deltaDistX;
-			truc->mapX += truc->stepX;
+			truc->sidedistx += truc->deltadistx;
+			truc->mapx += truc->stepx;
 			truc->side = 0;
 		}
 		else
 		{
-			truc->sideDistY += truc->deltaDistY;
-			truc->mapY += truc->stepY;
+			truc->sidedisty += truc->deltadisty;
+			truc->mapy += truc->stepy;
 			truc->side = 1;
 		}
-		if (truc->map[truc->mapX][truc->mapY] > 0)
+		if (truc->map[truc->mapx][truc->mapy] > 0)
 			truc->hit = 1;
 	}
 }
@@ -60,54 +60,33 @@ void	hit_wall(t_all *truc)
 void	distance_to_wall(t_all *truc)
 {
 	if (truc->side == 0)
-		truc->perpWallDist = (truc->mapX - truc->rayPosX + (1 - truc->stepX) / 2) / truc->rayDirX;
+		truc->perpwalldist = (truc->mapx - truc->rayposx + (1 - truc->stepx)
+				/ 2) / truc->raydirx;
 	else
-		truc->perpWallDist = (truc->mapY - truc->rayPosY + (1 - truc->stepY) / 2) / truc->rayDirY;
-	truc->lineHeight = (int)(H / truc->perpWallDist);
-	truc->drawStart = -truc->lineHeight / 2 + H / 2;
-	if (truc->drawStart < 0)
-		truc->drawStart = 0;
-	truc->drawEnd = truc->lineHeight / 2 + H / 2;
-	if (truc->drawEnd >= H || truc->drawEnd <= truc->drawStart)
-		truc->drawEnd = H - 1;
-}
-
-void	draw_vertical(t_all *truc, int x)
-{
-	int		y1;
-	int		y2;
-	int		i;
-
-	i = 0;
-	y1 = truc->drawStart;
-	y2 = truc->drawEnd;
-	while (++i <= y1)
-		*(unsigned *)(truc->data_addr + (i * truc->size) +
-				(x * truc->bpx / 8)) = 0x0060FFF9;
-	while (++y1 <= y2)
-		if (truc->side == 1)
-			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-					(x * truc->bpx / 8)) = 0x0066FF00;
-		else
-			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-					(x * truc->bpx / 8)) = 0x006600FF;
-	y2--;
-	while (++y2 <= H - 1)
-		*(unsigned *)(truc->data_addr + (y2 * truc->size) +
-				(x * truc->bpx / 8)) = 0x000F66FF;
+		truc->perpwalldist = (truc->mapy - truc->rayposy + (1 - truc->stepy)
+				/ 2) / truc->raydiry;
+	truc->lineheight = (int)(H / truc->perpwalldist);
+	truc->drawstart = -truc->lineheight / 2 + H / 2;
+	if (truc->drawstart < 0)
+		truc->drawstart = 0;
+	truc->drawend = truc->lineheight / 2 + H / 2;
+	if (truc->drawend >= H || truc->drawend <= truc->drawstart)
+		truc->drawend = H - 1;
 }
 
 void	ray_caster(t_all *truc, int x)
 {
-	truc->cameraX = 2 * x / (double)W - 1;
-	truc->rayPosX = truc->player_pos_x;
-	truc->rayPosY = truc->player_pos_y;
-	truc->rayDirX = truc->dirX + truc->planeX * truc->cameraX;
-	truc->rayDirY = truc->dirY + truc->planeY * truc->cameraX;
-	truc->mapX = (int)truc->rayPosX;
-	truc->mapY = (int)truc->rayPosY;
-	truc->deltaDistX = sqrt(1 + (truc->rayDirY * truc->rayDirY) / (truc->rayDirX * truc->rayDirX));
-	truc->deltaDistY = sqrt(1 + (truc->rayDirX * truc->rayDirX) / (truc->rayDirY * truc->rayDirY));
+	truc->camerax = 2 * x / (double)W - 1;
+	truc->rayposx = truc->player_pos_x;
+	truc->rayposy = truc->player_pos_y;
+	truc->raydirx = truc->dirx + truc->planex * truc->camerax;
+	truc->raydiry = truc->diry + truc->planey * truc->camerax;
+	truc->mapx = (int)truc->rayposx;
+	truc->mapy = (int)truc->rayposy;
+	truc->deltadistx = sqrt(1 + (truc->raydiry * truc->raydiry) /
+			(truc->raydirx * truc->raydirx));
+	truc->deltadisty = sqrt(1 + (truc->raydirx * truc->raydirx) /
+			(truc->raydiry * truc->raydiry));
 	truc->hit = 0;
 	step(truc);
 	hit_wall(truc);

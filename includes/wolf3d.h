@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 13:22:37 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 16:58:56 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,16 @@
 # define RIGHT_UBUNTU 65363
 # define MOVE_SPEED 0.09
 # define TURN_SPEED 0.06
-
-typedef struct	s_img
-{
-	void		*img;
-	char		*data_addr;
-	int			idgaf;
-	int			size;
-	int			bpx;
-	int			w;
-	int			h;
-}				t_img;
+# define COLOR_1 0x99CCFF
+# define COLOR_2 0x9933CC
+# define COLOR_3 0xFFCC00
+# define COLOR_4 0x66F0F0
+# define COLOR_5 0x0000CC
+# define COLOR_6 0x009900
+# define COLOR_7 0x33FF33
+# define COLOR_8 0x660099
+# define COLOR_9 0x660000
+# define COLOR_10 0x3333FF
 
 typedef struct	s_all
 {
@@ -59,29 +58,29 @@ typedef struct	s_all
 	int			idgaf;
 	double		player_pos_x;
 	double		player_pos_y;
-	double		dirX;
-	double		dirY;
-	double		planeX;
-	double		planeY;
-	double		cameraX;
-	double		rayPosX;
-	double		rayPosY;
-	double		rayDirX;
-	double		rayDirY;
-	int			mapX;
-	int			mapY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	double		perpWallDist;
-	int			stepX;
-	int			stepY;
+	double		dirx;
+	double		diry;
+	double		planex;
+	double		planey;
+	double		camerax;
+	double		rayposx;
+	double		rayposy;
+	double		raydirx;
+	double		raydiry;
+	int			mapx;
+	int			mapy;
+	double		sidedistx;
+	double		sidedisty;
+	double		deltadistx;
+	double		deltadisty;
+	double		perpwalldist;
+	int			stepx;
+	int			stepy;
 	int			hit;
 	int			side;
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
 	double		fps;
 	int			player_moving_up;
 	int			player_moving_down;
@@ -91,7 +90,7 @@ typedef struct	s_all
 	double		oldframe;
 	int			**map;
 	int			dens;
-	t_img		sky;
+	int			which;
 }				t_all;
 
 void			ray_caster(t_all *truc, int x);
@@ -99,5 +98,6 @@ void			find_walls(t_all *truc);
 int				loop_hook(t_all *truc);
 int				key_input(int keycode, t_all *truc);
 int				mouse_input(int keycode, int x, int y, t_all *truc);
+void			draw_vertical(t_all *truc, int x);
 
 #endif

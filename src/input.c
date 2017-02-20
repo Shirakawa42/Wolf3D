@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:06:08 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 13:07:12 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 16:55:38 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ int		key_input(int keycode, t_all *truc)
 		free(truc);
 		exit(0);
 	}
+	if (keycode == 83)
+		truc->which = 1;
+	else if (keycode == 84)
+		truc->which = 2;
+	else if (keycode == 85)
+		truc->which = 3;
+	else if (keycode == 86)
+		truc->which = 4;
+	else if (keycode == 87)
+		truc->which = 5;
+	else if (keycode == 88)
+		truc->which = 6;
 	if (keycode == UP || keycode == UP_UBUNTU)
 		truc->player_moving_up = !truc->player_moving_up;
 	else if (keycode == DOWN || keycode == DOWN_UBUNTU)
@@ -42,65 +54,87 @@ int		key_input(int keycode, t_all *truc)
 
 void	move_up(t_all *truc)
 {
-	if (truc->map[(int)(truc->player_pos_x + truc->dirX * MOVE_SPEED)][(int)truc->player_pos_y] == 0)
-		truc->player_pos_x += truc->dirX * MOVE_SPEED;
-	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y + truc->dirY * MOVE_SPEED)] == 0)
-		truc->player_pos_y += truc->dirY * MOVE_SPEED;
+	if (truc->map[(int)(truc->player_pos_x + truc->dirx
+				* MOVE_SPEED)][(int)truc->player_pos_y] == 0)
+		truc->player_pos_x += truc->dirx * MOVE_SPEED;
+	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y
+				+ truc->diry * MOVE_SPEED)] == 0)
+		truc->player_pos_y += truc->diry * MOVE_SPEED;
 }
 
 void	move_down(t_all *truc)
 {
-	if (truc->map[(int)(truc->player_pos_x - truc->dirX * MOVE_SPEED)][(int)truc->player_pos_y] == 0)
-		truc->player_pos_x -= truc->dirX * MOVE_SPEED;
-	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y - truc->dirY * MOVE_SPEED)] == 0)
-		truc->player_pos_y -= truc->dirY * MOVE_SPEED;
+	if (truc->map[(int)(truc->player_pos_x - truc->dirx *
+				MOVE_SPEED)][(int)truc->player_pos_y] == 0)
+		truc->player_pos_x -= truc->dirx * MOVE_SPEED;
+	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y
+				- truc->diry * MOVE_SPEED)] == 0)
+		truc->player_pos_y -= truc->diry * MOVE_SPEED;
 }
 
 void	move_right(t_all *truc)
 {
 	double	tmp;
 
-	tmp = truc->dirX;
-	truc->dirX = truc->dirX * cos(-TURN_SPEED) - truc->dirY * sin(-TURN_SPEED);
-	truc->dirY = tmp * sin(-TURN_SPEED) + truc->dirY * cos(-TURN_SPEED);
-	tmp = truc->planeX;
-	truc->planeX = truc->planeX * cos(-TURN_SPEED) - truc->planeY * sin(-TURN_SPEED);
-	truc->planeY = tmp * sin(-TURN_SPEED) + truc->planeY * cos(-TURN_SPEED);
+	tmp = truc->dirx;
+	truc->dirx = truc->dirx * cos(-TURN_SPEED) - truc->diry * sin(-TURN_SPEED);
+	truc->diry = tmp * sin(-TURN_SPEED) + truc->diry * cos(-TURN_SPEED);
+	tmp = truc->planex;
+	truc->planex = truc->planex * cos(-TURN_SPEED) -
+		truc->planey * sin(-TURN_SPEED);
+	truc->planey = tmp * sin(-TURN_SPEED) + truc->planey * cos(-TURN_SPEED);
 }
 
 void	move_left(t_all *truc)
 {
 	double	tmp;
 
-	tmp = truc->dirX;
-	truc->dirX = truc->dirX * cos(TURN_SPEED) - truc->dirY * sin(TURN_SPEED);
-	truc->dirY = tmp * sin(TURN_SPEED) + truc->dirY * cos(TURN_SPEED);
-	tmp = truc->planeX;
-	truc->planeX = truc->planeX * cos(TURN_SPEED) - truc->planeY * sin(TURN_SPEED);
-	truc->planeY = tmp * sin(TURN_SPEED) + truc->planeY * cos(TURN_SPEED);
+	tmp = truc->dirx;
+	truc->dirx = truc->dirx * cos(TURN_SPEED) - truc->diry * sin(TURN_SPEED);
+	truc->diry = tmp * sin(TURN_SPEED) + truc->diry * cos(TURN_SPEED);
+	tmp = truc->planex;
+	truc->planex = truc->planex * cos(TURN_SPEED) -
+		truc->planey * sin(TURN_SPEED);
+	truc->planey = tmp * sin(TURN_SPEED) + truc->planey * cos(TURN_SPEED);
 }
 
 void	create_cube(t_all *truc)
 {
-	if (truc->dirX < -0.5 && truc->dirX > -1 && truc->dirY < 0.5 && truc->dirY > -0.5)
-		truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y] = 1;
-	if (truc->dirX >= -0.5 && truc->dirY < 0.5 && truc->dirY > -0.5)
-		truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] = 1;
-	if (truc->dirY < -0.5 && truc->dirY > -1 && truc->dirX < 0.5 && truc->dirX > -0.5)
-		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1] = 1;
-	if (truc->dirY >= -0.5 && truc->dirX < 0.5 && truc->dirX > -0.5)
-		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] = 1;
+	if (truc->dirx < -0.5 && truc->dirx > -1 && truc->diry < 0.5 && truc->diry
+			> -0.5 && truc->map[(int)truc->player_pos_x - 1]
+			[(int)truc->player_pos_y] < 15)
+		truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y]
+			= truc->which;
+	if (truc->dirx >= -0.5 && truc->diry < 0.5 && truc->diry > -0.5 && truc->
+			map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] < 15)
+		truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y]
+			= truc->which;
+	if (truc->diry < -0.5 && truc->diry > -1 && truc->dirx < 0.5 && truc->dirx
+			> -0.5 && truc->map[(int)truc->player_pos_x]
+			[(int)truc->player_pos_y - 1] < 15)
+		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1]
+			= truc->which;
+	if (truc->diry >= -0.5 && truc->dirx < 0.5 && truc->dirx > -0.5 && truc->
+			map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] < 15)
+		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1]
+			= truc->which;
 }
 
 void	destroy_cube(t_all *truc)
 {
-	if (truc->dirX < -0.5 && truc->dirX > -1 && truc->dirY < 0.5 && truc->dirY > -0.5 && truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y] != 2)
+	if (truc->dirx < -0.5 && truc->dirx > -1 && truc->diry < 0.5 && truc->diry
+			> -0.5 && truc->map[(int)truc->player_pos_x - 1]
+			[(int)truc->player_pos_y] < 15)
 		truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y] = 0;
-	if (truc->dirX >= -0.5 && truc->dirY < 0.5 && truc->dirY > -0.5 && truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] != 2)
+	if (truc->dirx >= -0.5 && truc->diry < 0.5 && truc->diry > -0.5 && truc->
+			map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] < 15)
 		truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] = 0;
-	if (truc->dirY < -0.5 && truc->dirY > -1 && truc->dirX < 0.5 && truc->dirX > -0.5 && truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1] != 2)
+	if (truc->diry < -0.5 && truc->diry > -1 && truc->dirx < 0.5 && truc->dirx
+			> -0.5 && truc->map[(int)truc->player_pos_x]
+			[(int)truc->player_pos_y - 1] < 15)
 		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1] = 0;
-	if (truc->dirY >= -0.5 && truc->dirX < 0.5 && truc->dirX > -0.5 && truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] != 2)
+	if (truc->diry >= -0.5 && truc->dirx < 0.5 && truc->dirx > -0.5 && truc->
+			map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] < 15)
 		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] = 0;
 }
 
