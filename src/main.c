@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/15 16:31:38 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 13:53:28 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ void	init_values(t_all *truc, char **av)
 
 void	init_mlx(t_all *truc, char **av)
 {
-	truc->dens = ft_atoi(av[3]);
+	if ((truc->dens = ft_atoi(av[3])) < 0)
+		truc->dens = 0;
+	if (truc->dens > 8)
+		truc->dens = 8;
 	truc->mlx = mlx_init();
 	truc->win = mlx_new_window(truc->mlx, W, H, "Wolf3D");
 	truc->img = mlx_new_image(truc->mlx, W, H);
@@ -113,7 +116,11 @@ int		main(int ac, char **av)
 	t_all	*truc;
 
 	if (ac != 4)
+	{
+		ft_putstr("usage: ./Wolf3D \"map_size_x (max 25000)\" \"map_size_y");
+		ft_putstr(" (max 25000)\" \"wall_density (0 to 8)\"\n");
 		return (0);
+	}
 	if ((truc = (t_all*)malloc(sizeof(t_all))) == 0)
 		return (0);
 	init_mlx(truc, av);
