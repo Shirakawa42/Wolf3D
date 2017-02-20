@@ -6,37 +6,35 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 16:56:54 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 17:18:29 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 17:51:26 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
 
-void	draw_vertical(t_all *truc, int x)
+void	draw_vertical_3(t_all *truc, int x, int y1, int y2)
 {
-	int		y1;
-	int		y2;
-	int		i;
-
-	i = 0;
-	y1 = truc->drawstart;
-	y2 = truc->drawend;
-	while (++i <= y1)
-		*(unsigned *)(truc->data_addr + (i * truc->size) +
-				(x * truc->bpx / 8)) = 0x0060FFF9;
-	if (truc->map[truc->mapx][truc->mapy] == 1)
+	if (truc->map[truc->mapx][truc->mapy] == 5)
 		while (++y1 <= y2)
 			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-					(x * truc->bpx / 8)) = COLOR_1;
+					(x * truc->bpx / 8)) = COLOR_9;
+	else if (truc->map[truc->mapx][truc->mapy] == 6)
+		while (++y1 <= y2)
+			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
+					(x * truc->bpx / 8)) = COLOR_10;
 	else if (truc->map[truc->mapx][truc->mapy] == 2)
 		while (++y1 <= y2)
 			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
 					(x * truc->bpx / 8)) = COLOR_2;
-	else if (truc->map[truc->mapx][truc->mapy] == 3)
+	else
 		while (++y1 <= y2)
 			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-					(x * truc->bpx / 8)) = COLOR_3;
-	else if (truc->map[truc->mapx][truc->mapy] == 4)
+					(x * truc->bpx / 8)) = 0xFFFFFF;
+}
+
+void	draw_vertical_2(t_all *truc, int x, int y1, int y2)
+{
+	if (truc->map[truc->mapx][truc->mapy] == 4)
 		while (++y1 <= y2)
 			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
 					(x * truc->bpx / 8)) = COLOR_4;
@@ -56,20 +54,33 @@ void	draw_vertical(t_all *truc, int x)
 		while (++y1 <= y2)
 			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
 					(x * truc->bpx / 8)) = COLOR_8;
-	else if (truc->map[truc->mapx][truc->mapy] == 5)
-		while (++y1 <= y2)
-			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-					(x * truc->bpx / 8)) = COLOR_9;
-	else if (truc->map[truc->mapx][truc->mapy] == 6)
-		while (++y1 <= y2)
-			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-					(x * truc->bpx / 8)) = COLOR_10;
 	else
+		draw_vertical_3(truc, x, y1, y2);
+}
+
+void	draw_vertical(t_all *truc, int x)
+{
+	int		y1;
+	int		y2;
+	int		i;
+
+	i = 0;
+	y1 = truc->drawstart;
+	y2 = truc->drawend;
+	while (++i <= y1)
+		*(unsigned *)(truc->data_addr + (i * truc->size) +
+				(x * truc->bpx / 8)) = 0x0060FFF9;
+	if (truc->map[truc->mapx][truc->mapy] == 1)
 		while (++y1 <= y2)
 			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
-					(x * truc->bpx / 8)) = 0xFFFFFF;
+					(x * truc->bpx / 8)) = COLOR_1;
+	else if (truc->map[truc->mapx][truc->mapy] == 3)
+		while (++y1 <= y2)
+			*(unsigned *)(truc->data_addr + (y1 * truc->size) +
+					(x * truc->bpx / 8)) = COLOR_3;
+	draw_vertical_2(truc, x, y1, y2);
 	y2--;
 	while (++y2 < H)
-			*(unsigned *)(truc->data_addr + (y2 * truc->size) +
-					(x * truc->bpx / 8)) = 0x996600;
+		*(unsigned *)(truc->data_addr + (y2 * truc->size) +
+				(x * truc->bpx / 8)) = 0x996600;
 }

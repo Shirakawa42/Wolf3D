@@ -6,7 +6,7 @@
 #    By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/14 17:09:20 by lvasseur          #+#    #+#              #
-#    Updated: 2017/02/20 17:00:06 by lvasseur         ###   ########.fr        #
+#    Updated: 2017/02/20 17:44:44 by lvasseur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT = libft/libft.a
 
 C_DIR = src/
 
-SRCS = main.c input.c ray_caster.c vertical.c
+SRCS = main.c input.c ray_caster.c vertical.c moves.c other.c
 
 SRC = $(addprefix $(C_DIR), $(SRCS))
 

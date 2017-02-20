@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 16:58:56 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 17:44:27 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,12 @@ int				loop_hook(t_all *truc);
 int				key_input(int keycode, t_all *truc);
 int				mouse_input(int keycode, int x, int y, t_all *truc);
 void			draw_vertical(t_all *truc, int x);
+void			move_up(t_all *truc);
+void			move_down(t_all *truc);
+void			move_right(t_all *truc);
+void			move_left(t_all *truc);
+int				echap_key(t_all *truc);
+void			reload(t_all *truc);
+void			init_map_2(t_all *truc, int x, int y, int i);
 
 #endif

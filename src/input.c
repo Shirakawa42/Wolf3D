@@ -6,29 +6,16 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:06:08 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 16:55:38 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 17:43:04 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
 
-void	reload(t_all *truc)
-{
-	mlx_destroy_image(truc->mlx, truc->img);
-	truc->img = mlx_new_image(truc->mlx, W, H);
-	truc->data_addr = mlx_get_data_addr(truc->img, &truc->bpx,
-			&truc->size, &truc->idgaf);
-	find_walls(truc);
-}
-
 int		key_input(int keycode, t_all *truc)
 {
 	if (keycode == ECHAP || keycode == ECHAP_UBUNTU)
-	{
-		free(truc->map);
-		free(truc);
-		exit(0);
-	}
+		return (echap_key(truc));
 	if (keycode == 83)
 		truc->which = 1;
 	else if (keycode == 84)
@@ -52,72 +39,26 @@ int		key_input(int keycode, t_all *truc)
 	return (0);
 }
 
-void	move_up(t_all *truc)
-{
-	if (truc->map[(int)(truc->player_pos_x + truc->dirx
-				* MOVE_SPEED)][(int)truc->player_pos_y] == 0)
-		truc->player_pos_x += truc->dirx * MOVE_SPEED;
-	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y
-				+ truc->diry * MOVE_SPEED)] == 0)
-		truc->player_pos_y += truc->diry * MOVE_SPEED;
-}
-
-void	move_down(t_all *truc)
-{
-	if (truc->map[(int)(truc->player_pos_x - truc->dirx *
-				MOVE_SPEED)][(int)truc->player_pos_y] == 0)
-		truc->player_pos_x -= truc->dirx * MOVE_SPEED;
-	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y
-				- truc->diry * MOVE_SPEED)] == 0)
-		truc->player_pos_y -= truc->diry * MOVE_SPEED;
-}
-
-void	move_right(t_all *truc)
-{
-	double	tmp;
-
-	tmp = truc->dirx;
-	truc->dirx = truc->dirx * cos(-TURN_SPEED) - truc->diry * sin(-TURN_SPEED);
-	truc->diry = tmp * sin(-TURN_SPEED) + truc->diry * cos(-TURN_SPEED);
-	tmp = truc->planex;
-	truc->planex = truc->planex * cos(-TURN_SPEED) -
-		truc->planey * sin(-TURN_SPEED);
-	truc->planey = tmp * sin(-TURN_SPEED) + truc->planey * cos(-TURN_SPEED);
-}
-
-void	move_left(t_all *truc)
-{
-	double	tmp;
-
-	tmp = truc->dirx;
-	truc->dirx = truc->dirx * cos(TURN_SPEED) - truc->diry * sin(TURN_SPEED);
-	truc->diry = tmp * sin(TURN_SPEED) + truc->diry * cos(TURN_SPEED);
-	tmp = truc->planex;
-	truc->planex = truc->planex * cos(TURN_SPEED) -
-		truc->planey * sin(TURN_SPEED);
-	truc->planey = tmp * sin(TURN_SPEED) + truc->planey * cos(TURN_SPEED);
-}
-
 void	create_cube(t_all *truc)
 {
 	if (truc->dirx < -0.5 && truc->dirx > -1 && truc->diry < 0.5 && truc->diry
 			> -0.5 && truc->map[(int)truc->player_pos_x - 1]
 			[(int)truc->player_pos_y] < 15)
-		truc->map[(int)truc->player_pos_x - 1][(int)truc->player_pos_y]
-			= truc->which;
+		truc->map[(int)truc->player_pos_x - 1]
+			[(int)truc->player_pos_y] = truc->which;
 	if (truc->dirx >= -0.5 && truc->diry < 0.5 && truc->diry > -0.5 && truc->
 			map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y] < 15)
-		truc->map[(int)truc->player_pos_x + 1][(int)truc->player_pos_y]
-			= truc->which;
+		truc->map[(int)truc->player_pos_x + 1]
+			[(int)truc->player_pos_y] = truc->which;
 	if (truc->diry < -0.5 && truc->diry > -1 && truc->dirx < 0.5 && truc->dirx
 			> -0.5 && truc->map[(int)truc->player_pos_x]
 			[(int)truc->player_pos_y - 1] < 15)
-		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y - 1]
-			= truc->which;
+		truc->map[(int)truc->player_pos_x]
+			[(int)truc->player_pos_y - 1] = truc->which;
 	if (truc->diry >= -0.5 && truc->dirx < 0.5 && truc->dirx > -0.5 && truc->
 			map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1] < 15)
-		truc->map[(int)truc->player_pos_x][(int)truc->player_pos_y + 1]
-			= truc->which;
+		truc->map[(int)truc->player_pos_x]
+			[(int)truc->player_pos_y + 1] = truc->which;
 }
 
 void	destroy_cube(t_all *truc)
