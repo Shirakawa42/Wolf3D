@@ -6,12 +6,11 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:06:08 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/14 18:01:29 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/20 13:07:12 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
-#include <stdio.h>
 
 void	reload(t_all *truc)
 {
@@ -110,7 +109,7 @@ int		mouse_input(int keycode, int x, int y, t_all *truc)
 	x = y;
 	if (keycode == 1)
 		destroy_cube(truc);
-	else if (keycode == 3)
+	else if (keycode == 3 || keycode == 2)
 		create_cube(truc);
 	return (0);
 }
