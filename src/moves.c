@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 17:41:48 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 17:41:50 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 11:29:24 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 void	move_up(t_all *truc)
 {
 	if (truc->map[(int)(truc->player_pos_x + truc->dirx
-				* MOVE_SPEED)][(int)truc->player_pos_y] == 0)
-		truc->player_pos_x += truc->dirx * MOVE_SPEED;
+				* truc->move_speed)][(int)truc->player_pos_y] == 0)
+		truc->player_pos_x += truc->dirx * truc->move_speed;
 	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y
-				+ truc->diry * MOVE_SPEED)] == 0)
-		truc->player_pos_y += truc->diry * MOVE_SPEED;
+				+ truc->diry * truc->move_speed)] == 0)
+		truc->player_pos_y += truc->diry * truc->move_speed;
 }
 
 void	move_down(t_all *truc)
 {
 	if (truc->map[(int)(truc->player_pos_x - truc->dirx *
-				MOVE_SPEED)][(int)truc->player_pos_y] == 0)
-		truc->player_pos_x -= truc->dirx * MOVE_SPEED;
+				truc->move_speed)][(int)truc->player_pos_y] == 0)
+		truc->player_pos_x -= truc->dirx * truc->move_speed;
 	if (truc->map[(int)truc->player_pos_x][(int)(truc->player_pos_y
-				- truc->diry * MOVE_SPEED)] == 0)
-		truc->player_pos_y -= truc->diry * MOVE_SPEED;
+				- truc->diry * truc->move_speed)] == 0)
+		truc->player_pos_y -= truc->diry * truc->move_speed;
 }
 
 void	move_right(t_all *truc)

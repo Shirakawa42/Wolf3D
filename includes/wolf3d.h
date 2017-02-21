@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 17:44:27 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 11:28:56 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define DOWN_UBUNTU 65364
 # define LEFT_UBUNTU 65361
 # define RIGHT_UBUNTU 65363
-# define MOVE_SPEED 0.09
+# define SPRINT 257
 # define TURN_SPEED 0.06
 # define COLOR_1 0x99CCFF
 # define COLOR_2 0x9933CC
@@ -81,7 +81,6 @@ typedef struct	s_all
 	int			lineheight;
 	int			drawstart;
 	int			drawend;
-	double		fps;
 	int			player_moving_up;
 	int			player_moving_down;
 	int			player_moving_left;
@@ -90,6 +89,7 @@ typedef struct	s_all
 	double		oldframe;
 	int			**map;
 	int			dens;
+	double		move_speed;
 	int			which;
 }				t_all;
 
@@ -104,7 +104,7 @@ void			move_down(t_all *truc);
 void			move_right(t_all *truc);
 void			move_left(t_all *truc);
 int				echap_key(t_all *truc);
-void			reload(t_all *truc);
 void			init_map_2(t_all *truc, int x, int y, int i);
+int				key_input_2(int keycode, t_all *truc);
 
 #endif

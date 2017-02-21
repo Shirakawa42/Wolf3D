@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 17:44:04 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 11:29:21 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	init_mlx(t_all *truc, char **av)
 	truc->img = mlx_new_image(truc->mlx, W, H);
 	truc->data_addr = mlx_get_data_addr(truc->img, &truc->bpx,
 			&truc->size, &truc->idgaf);
+	truc->move_speed = 0.09;
 	init_values(truc, av);
 	mlx_do_key_autorepeatoff(truc->mlx);
 	mlx_loop_hook(truc->mlx, loop_hook, truc);

@@ -6,19 +6,22 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 17:42:42 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 17:44:14 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 11:29:28 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
 
-void	reload(t_all *truc)
+int		key_input_2(int keycode, t_all *truc)
 {
-	mlx_destroy_image(truc->mlx, truc->img);
-	truc->img = mlx_new_image(truc->mlx, W, H);
-	truc->data_addr = mlx_get_data_addr(truc->img, &truc->bpx,
-			&truc->size, &truc->idgaf);
-	find_walls(truc);
+	if (keycode == SPRINT)
+	{
+		if (truc->move_speed == 0.09)
+			truc->move_speed = 0.18;
+		else
+			truc->move_speed = 0.09;
+	}
+	return (0);
 }
 
 int		echap_key(t_all *truc)

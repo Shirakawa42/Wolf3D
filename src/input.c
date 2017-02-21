@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:06:08 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/20 17:43:04 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 11:29:16 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		key_input(int keycode, t_all *truc)
 		truc->player_moving_left = !truc->player_moving_left;
 	else if (keycode == RIGHT || keycode == RIGHT_UBUNTU)
 		truc->player_moving_right = !truc->player_moving_right;
-	return (0);
+	return (key_input_2(keycode, truc));
 }
 
 void	create_cube(t_all *truc)
@@ -103,6 +103,6 @@ int		loop_hook(t_all *truc)
 		move_left(truc);
 	if (truc->player_moving_right != 0)
 		move_right(truc);
-	reload(truc);
+	find_walls(truc);
 	return (0);
 }
