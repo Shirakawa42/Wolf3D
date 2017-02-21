@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/21 11:28:56 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 12:57:56 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ typedef struct	s_all
 	int			player_moving_down;
 	int			player_moving_left;
 	int			player_moving_right;
-	double		frame;
-	double		oldframe;
 	int			**map;
 	int			dens;
 	double		move_speed;

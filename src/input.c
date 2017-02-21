@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 12:06:08 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/21 11:29:16 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 11:47:52 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,6 @@ int		mouse_input(int keycode, int x, int y, t_all *truc)
 
 int		loop_hook(t_all *truc)
 {
-	truc->oldframe = clock();
-	if (truc->frame > truc->oldframe)
-		return (0);
-	truc->frame = truc->oldframe + (CLOCKS_PER_SEC / 100);
 	if (truc->player_moving_up != 0)
 		move_up(truc);
 	if (truc->player_moving_down != 0)

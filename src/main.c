@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/21 11:29:21 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/21 11:42:41 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	init_values(t_all *truc, char **av)
 	truc->diry = 0;
 	truc->planex = 0;
 	truc->planey = 0.66;
-	truc->frame = 0;
-	truc->oldframe = 0;
 	truc->player_moving_up = 0;
 	truc->player_moving_left = 0;
 	truc->player_moving_down = 0;
