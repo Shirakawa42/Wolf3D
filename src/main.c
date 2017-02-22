@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/22 13:40:21 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/22 13:53:15 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	init_mlx(t_all *truc, char **av)
 	mlx_do_key_autorepeatoff(truc->mlx);
 	mlx_loop_hook(truc->mlx, loop_hook, truc);
 	mlx_hook(truc->win, 2, 1L << 0, key_input, truc);
+	mlx_hook(truc->win, 17, 1L << 0, exit_redcross, truc);
 	mlx_key_hook(truc->win, key_input, truc);
 	mlx_mouse_hook(truc->win, mouse_input, truc);
 	mlx_loop(truc->mlx);

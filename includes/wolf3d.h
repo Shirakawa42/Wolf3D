@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/22 13:26:11 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/22 13:52:23 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void			move_left(t_all *truc);
 int				echap_key(t_all *truc);
 void			init_map_2(t_all *truc, int x, int y, int i);
 int				key_input_2(int keycode, t_all *truc);
+int				exit_redcross(t_all *truc);
 
 #endif

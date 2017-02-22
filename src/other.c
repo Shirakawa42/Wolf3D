@@ -6,11 +6,19 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 17:42:42 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/21 11:29:28 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/22 13:52:06 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
+
+int		exit_redcross(t_all *truc)
+{
+	exit(0);
+	free(truc->map);
+	free(truc);
+	return (0);
+}
 
 int		key_input_2(int keycode, t_all *truc)
 {
