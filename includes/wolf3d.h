@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 11:58:10 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/21 13:17:21 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/22 13:26:11 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define RIGHT_UBUNTU 65363
 # define SPRINT 257
 # define TURN_SPEED 0.06
+# define FOV 66
 # define COLOR_1 0x99CCFF
 # define COLOR_2 0x9933CC
 # define COLOR_3 0xFFCC00
