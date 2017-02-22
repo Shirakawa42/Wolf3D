@@ -6,7 +6,7 @@
 /*   By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 11:59:30 by lvasseur          #+#    #+#             */
-/*   Updated: 2017/02/22 13:53:15 by lvasseur         ###   ########.fr       */
+/*   Updated: 2017/02/22 14:00:52 by lvasseur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		main(int ac, char **av)
 
 	if (ac != 4)
 	{
-		ft_putstr("usage: ./Wolf3D \"map_size_x (max 25000)\" \"map_size_y");
+		ft_putstr("usage: ./wolf3d \"map_size_x (max 25000)\" \"map_size_y");
 		ft_putstr(" (max 25000)\" \"wall_density (0 to 4)\"\n");
 		return (0);
 	}

@@ -6,13 +6,13 @@
 #    By: lvasseur <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/14 17:09:20 by lvasseur          #+#    #+#              #
-#    Updated: 2017/02/20 17:44:44 by lvasseur         ###   ########.fr        #
+#    Updated: 2017/02/22 14:00:35 by lvasseur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY: make all clean fclean re
 
-NAME = Wolf3D
+NAME = wolf3d
 
 LIB = -L libft/ -lft
 
